@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -19,7 +19,7 @@ const Navbar = () => {
           <Link to="/contact" className="hover:text-blue-600 transition">Contact</Link>
         </li>
         <li>
-          <Link to="/about" className="hover:text-blue-600 transition">About UK</Link>
+          <Link to="/about" className="hover:text-blue-600 transition">About us</Link>
         </li>
       </ul>
     </nav>
