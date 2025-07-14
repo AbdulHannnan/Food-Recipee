@@ -1,34 +1,64 @@
-import React from 'react';
+import { useLoaderData } from 'react-router-dom';
+import { FaHeart } from 'react-icons/fa';
+import { useState } from 'react';
 
-const Home = () => {
+export default function Home() {
+  const allRecipies = useLoaderData();
+  const [favourites, setFavourites] = useState([]);
+
+  const toggleFavourite = (id) => {
+    setFavourites((prev) =>
+      prev.includes(id) ? prev.filter(fav => fav !== id) : [...prev, id]
+    );
+  };
+
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 bg-white">
-      <div className="container mx-auto flex flex-col-reverse md:flex-row items-center gap-10">
-        
+    <div className="max-w-7xl mx-auto px-4 py-8">
+
+      {/* 🚀 Hero Section */}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-10 mb-12">
         {/* Left Side */}
-        <div className="flex-1 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Welcome to My Website 🚀
+        <div className="md:w-1/2 text-center md:text-left">
+          <h1 className="text-4xl md:text-5xl font-bold text-blue-700 mb-4">
+            Discover Delicious Recipes 🍽️
           </h1>
           <p className="text-gray-600 mb-6">
-            This is a modern hero section built with React + Vite. You can customize this easily.
+            Explore a world of flavors, ingredients, and step-by-step instructions to cook amazing dishes at home.
           </p>
-          <button className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition">
-            Get Started
+          <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
+            Explore Recipes
           </button>
         </div>
 
         {/* Right Side */}
-        <div className="flex-1">
-          <img 
-            src="/hero-image.png" // put your image in `public` folder
-            alt="Hero Illustration"
-            className="w-full max-w-md mx-auto"
+        <div className="md:w-1/2">
+          <img
+            src="https://cdn.pixabay.com/photo/2016/11/18/16/16/spaghetti-1838412_960_720.jpg"
+            alt="Food"
+            className="rounded-xl shadow-lg w-full"
           />
         </div>
       </div>
-    </section>
-  );
-};
 
-export default Home;
+      {/* 📋 Recipes Section */}
+      <h2 className="text-3xl font-bold mb-6 text-center">All Recipes</h2>
+      <div className="grid gap-6 md:grid-cols-2">
+        {allRecipies.map((recipe) => (
+          <div key={recipe._id} className="bg-white shadow-md rounded-lg p-5 border relative">
+            {/* ❤️ Heart Icon */}
+            <button
+              className="absolute top-3 right-3 text-red-500 text-xl hover:scale-110 transition"
+              onClick={() => toggleFavourite(recipe._id)}
+            >
+              <FaHeart color={favourites.includes(recipe._id) ? "red" : "gray"} />
+            </button>
+
+            <h3 className="text-xl font-semibold mb-2 text-blue-600">{recipe.title}</h3>
+            <p className="mb-2"><strong>Ingredients:</strong> {recipe.ingredients}</p>
+            <p><strong>Instructions:</strong> {recipe.instructions}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
