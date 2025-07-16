@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const PORT = 5000;
 const cors = require("cors")
+require("dotenv").config();
+
 
 
 app.use(express.json());
@@ -16,6 +18,7 @@ connectDB();
 
 // Recipie routes
 app.use("/recipie", require("./routes/recipie"));
+app.use("/", require("./routes/user"));
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
