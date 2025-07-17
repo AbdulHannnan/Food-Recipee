@@ -1,10 +1,8 @@
-
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
     <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between">
-      
       {/* Logo on the left */}
       <div className="text-2xl font-bold text-blue-600">
         MyLogo
@@ -20,6 +18,12 @@ const Navbar = () => {
         </li>
         <li>
           <Link to="/about" className="hover:text-blue-600 transition">About us</Link>
+        </li>
+        <li>
+          <Link to="/login" className="hover:text-blue-600 transition">Login</Link>
+        </li>
+        <li>
+          <Link to="/signup" className="hover:text-blue-600 transition">Signup</Link>
         </li>
       </ul>
     </nav>
