@@ -29,11 +29,34 @@ let token = jwt.sign(
   return res.status(200).json({ newUser, token });
 };
 
+
+
+
 const userLogin = async (req, res) => {
-  // your logic here later
+    const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and Password are required" });
+  }
+  let user = await User.findOne({email})
+  if(user && await bcrypt.compare(password , user.password)){
+    let token = jwt.sign(
+  { email, id: user._id },
+  process.env.SECRET_KEY, // ✅ correct name
+  { expiresIn: "1h" }      // ✅ also use "1h" not "1hr"
+);
+
+  return res.status(200).json({ user, token });
+  }
+  else{
+    return res.status(400).json({error: "Invalid the credentials"})
+  }
+
 };
 
 const getUser = async (req, res) => {
+    const user = await User.findById(req.params.id)
+    res.json({email:user.email})
   // your logic here later
 };
 
