@@ -1,13 +1,28 @@
 const express = require("express");
 const router = express.Router();
+const upload = require("../middleware/upload");
 
-const { getRecipies , getRecipie , addRecipie , editRecipie , deleteRecipie } = require("../controller/recipie");
+const {
+  getRecipies,
+  getRecipie,
+  addRecipie,
+  editRecipie,
+  deleteRecipie
+} = require("../controller/recipie");
 
-router.get("/", getRecipies); // it will get all the recipie
-router.get ("/:id" , getRecipie); // ite iwll get the recipie by theri id 
-router.post("/" , addRecipie); // for adding the new recipie 
-router.put("/:id" , editRecipie); // for editing the recipie by therir id
-router.delete("/:id" , deleteRecipie); //for deleting the specific recipie by theri id
+// Get all recipes
+router.get("/", getRecipies);
 
+// Get a single recipe by ID
+router.get("/:id", getRecipie);
+
+// Add a new recipe (with image upload)
+router.post("/", upload.single("file"), addRecipie);
+
+// Edit a recipe by ID
+router.put("/:id", upload.single("file"), editRecipie);
+
+// Delete a recipe by ID
+router.delete("/:id", deleteRecipie);
 
 module.exports = router;

@@ -5,6 +5,13 @@ const cors = require("cors")
 require('dotenv').config();
 
 
+app.use("/uploads", express.static("uploads")); // to serve image files
+
+
+app.use("/api/recipes", require("./routes/recipie"));
+app.use("/uploads", express.static("uploads")); // to serve uploaded files
+
+
 app.use(express.json());
 app.use(cors());
 // Root route (optional)

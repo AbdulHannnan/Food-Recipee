@@ -1,8 +1,10 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { FaHeart } from 'react-icons/fa';
 import { useState } from 'react';
 
 export default function Home() {
+
+  const navigate = useNavigate();
   const allRecipies = useLoaderData();
   const [favourites, setFavourites] = useState([]);
 
@@ -25,7 +27,7 @@ export default function Home() {
           <p className="text-gray-600 mb-6">
             Explore a world of flavors, ingredients, and step-by-step instructions to cook amazing dishes at home.
           </p>
-          <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
+          <button onClick={() => navigate("/addFoodRecipie")} className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
             Explore Recipes
           </button>
         </div>

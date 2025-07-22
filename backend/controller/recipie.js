@@ -11,20 +11,28 @@ const getRecipie = async(req, res) => {
   return res.json(recipie)
 };
 
-const addRecipie = async(req, res) => {
-  const {title  , ingredients , instructions , coverImage} = req.body
+const addRecipie = async (req, res) => {
+  const { title, ingredients, instructions, time } = req.body;
 
-  if(!title  || !ingredients || !instructions){
-    res.json({message : "Required fields can't be empty"})
+  if (!title || !ingredients || !instructions) {
+    return res.status(400).json({ message: "Required fields can't be empty" });
   }
 
-  const newRecipie= await Recipies.create({
-    title , ingredients , instructions , coverImage
-  })
+  const coverImage = req.file ? req.file.filename : null;
 
-  return res.json(newRecipie);
+  const newRecipie = await Recipies.create({
+    title,
+    ingredients: Array.isArray(ingredients) ? ingredients : ingredients.split(','),
+    instructions,
+    time,
+    coverImage
+  });
 
+  return res.status(201).json(newRecipie);
 };
+
+
+
 
 const editRecipie = async(req, res) => {
  const {title  , ingredients , instructions , coverImage} = req.body

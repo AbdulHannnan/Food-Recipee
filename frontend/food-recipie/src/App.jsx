@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import Layout from './pages/Layout';
 import Login from './components/Login'; // adjust path if needed
 import Signup from './components/Signup';
+import AddFoodRecipie from './pages/addFoodRecipie';
 import axios from "axios";
 
 const gettAllRecipies = async () => {
@@ -20,7 +21,8 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <Home />, loader: gettAllRecipies },
       { path: "login", element: <Login /> },
-      { path: "signup", element: <Signup /> }
+      { path: "signup", element: <Signup /> },
+      { path: "addFoodRecipie", element: <AddFoodRecipie /> }
     ]
   }
 ]);
